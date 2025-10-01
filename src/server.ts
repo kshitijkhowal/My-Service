@@ -16,14 +16,31 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
+// CORS configuration based on environment
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' 
+    ? process.env.CORS_ORIGIN || false 
+    : true,
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Request logging middleware
+// Request logging middleware (reduced in production)
 app.use((req, res, next) => {
-  logger.info(`${req.method} ${req.path} - ${req.ip}`);
+  if (process.env.NODE_ENV === 'production') {
+    // Log only errors and important requests in production
+    if (req.path !== '/health' && (req.method !== 'GET' || req.path.includes('/api/'))) {
+      logger.info(`${req.method} ${req.path} - ${req.ip}`);
+    }
+  } else {
+    // Log all requests in development
+    logger.info(`${req.method} ${req.path} - ${req.ip}`);
+  }
   next();
 });
 
@@ -35,11 +52,35 @@ app.use(notFound);
 app.use(errorHandler);
 
 // Start server
-const PORT = process.env.PORT || 3000;
+const PORT = parseInt(process.env.PORT || '3000', 10);
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
-app.listen(PORT, () => {
+// Production optimizations
+if (NODE_ENV === 'production') {
+  // Trust proxy for accurate IP addresses behind load balancers
+  app.set('trust proxy', 1);
+  
+  // Disable x-powered-by header for security
+  app.disable('x-powered-by');
+  
+  // Set security headers
+  app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    next();
+  });
+}
+
+app.listen(PORT, '0.0.0.0', () => {
   logger.info(`Server running in ${NODE_ENV} mode on port ${PORT}`);
+  
+  if (NODE_ENV === 'production') {
+    logger.info('Production optimizations enabled');
+    logger.info('Security headers configured');
+    logger.info('CORS configured for production');
+  }
 });
 
 // Handle unhandled promise rejections
