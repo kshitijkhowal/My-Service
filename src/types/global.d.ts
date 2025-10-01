@@ -78,7 +78,9 @@ export interface ICertificate {
   _id?: string;
   title: string;
   issuer: string;
-  year: number;
+  date: Date;
+  description?: string;
+  credentials?: string;
   link: string;
   createdAt?: Date;
   updatedAt?: Date;

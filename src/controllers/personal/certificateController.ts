@@ -7,7 +7,7 @@ import logger from '../../config/logger';
 // Get all certificates
 export const getAllCertificates = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const certificates = await Certificate.find().sort({ year: -1 });
+    const certificates = await Certificate.find().sort({ date: -1 });
     sendSuccess(res, certificates, 'Certificates retrieved successfully');
   } catch (error) {
     logger.error('Error getting certificates:', error);

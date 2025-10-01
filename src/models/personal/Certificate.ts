@@ -15,11 +15,25 @@ const certificateSchema = new Schema<ICertificate>({
     trim: true,
     maxlength: [200, 'Issuer name cannot be more than 200 characters']
   },
-  year: {
-    type: Number,
-    required: [true, 'Year is required'],
-    min: [1900, 'Year must be after 1900'],
-    max: [new Date().getFullYear(), 'Year cannot be in the future']
+  date: {
+    type: Date,
+    required: [true, 'Date is required'],
+    validate: {
+      validator: function(value: Date) {
+        return value <= new Date();
+      },
+      message: 'Date cannot be in the future'
+    }
+  },
+  description: {
+    type: String,
+    trim: true,
+    maxlength: [500, 'Description cannot be more than 500 characters']
+  },
+  credentials: {
+    type: String,
+    trim: true,
+    maxlength: [100, 'Credentials cannot be more than 100 characters']
   },
   link: {
     type: String,
