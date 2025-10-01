@@ -1,0 +1,561 @@
+{
+  "info": {
+    "name": "My Service API",
+    "description": "Complete API collection for personal portfolio service with authentication",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{API_KEY}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "API_KEY",
+      "value": "your-super-secret-api-key-here",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Check if the API is running (no authentication required)"
+      },
+      "response": []
+    },
+    {
+      "name": "Personal Profile",
+      "item": [
+        {
+          "name": "Get All Profiles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "profile"]
+            },
+            "description": "Get all personal profiles (no authentication required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Profile by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/profile/{{profileId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "profile", "{{profileId}}"]
+            },
+            "description": "Get a specific personal profile by ID (no authentication required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Profile",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"bio\": \"Full-stack developer with 5+ years of experience\",\n  \"email\": \"john.doe@example.com\",\n  \"phone\": \"+1234567890\",\n  \"socials\": [\n    {\n      \"platform\": \"LinkedIn\",\n      \"url\": \"https://linkedin.com/in/johndoe\"\n    },\n    {\n      \"platform\": \"GitHub\",\n      \"url\": \"https://github.com/johndoe\"\n    }\n  ],\n  \"resumeLinks\": [\n    {\n      \"title\": \"Resume 2024\",\n      \"url\": \"https://example.com/resume.pdf\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "profile"]
+            },
+            "description": "Create a new personal profile (API key required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Smith\",\n  \"bio\": \"Updated bio information\",\n  \"phone\": \"+1234567891\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/profile/{{profileId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "profile", "{{profileId}}"]
+            },
+            "description": "Update an existing personal profile (API key required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Profile",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/profile/{{profileId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "profile", "{{profileId}}"]
+            },
+            "description": "Delete a personal profile (API key required)"
+          },
+          "response": []
+        }
+      ],
+      "description": "Personal profile management endpoints"
+    },
+    {
+      "name": "Education",
+      "item": [
+        {
+          "name": "Get All Education",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/education",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "education"]
+            },
+            "description": "Get all education records (no authentication required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Education by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/education/{{educationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "education", "{{educationId}}"]
+            },
+            "description": "Get a specific education record by ID (no authentication required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Education",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"degree\": \"Bachelor of Computer Science\",\n  \"school\": \"University of Technology\",\n  \"startDate\": \"2020-09-01\",\n  \"endDate\": \"2024-06-30\",\n  \"percentage\": 85.5,\n  \"cgpa\": 8.5,\n  \"marksheets\": [\n    {\n      \"title\": \"Semester 1 Results\",\n      \"url\": \"https://example.com/marksheet1.pdf\",\n      \"description\": \"First semester academic performance\"\n    },\n    {\n      \"title\": \"Final Year Project Report\",\n      \"url\": \"https://example.com/fyp-report.pdf\",\n      \"description\": \"Capstone project documentation\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/education",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "education"]
+            },
+            "description": "Create a new education record (API key required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Education",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"percentage\": 87.2,\n  \"cgpa\": 8.7\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/education/{{educationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "education", "{{educationId}}"]
+            },
+            "description": "Update an existing education record (API key required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Education",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/education/{{educationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "education", "{{educationId}}"]
+            },
+            "description": "Delete an education record (API key required)"
+          },
+          "response": []
+        }
+      ],
+      "description": "Education records management endpoints"
+    },
+    {
+      "name": "Experience",
+      "item": [
+        {
+          "name": "Get All Experience",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/experience",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "experience"]
+            },
+            "description": "Get all experience records (no authentication required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Experience by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/experience/{{experienceId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "experience", "{{experienceId}}"]
+            },
+            "description": "Get a specific experience record by ID (no authentication required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Experience",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"Senior Software Engineer\",\n  \"company\": \"Tech Corp\",\n  \"startDate\": \"2022-01-15\",\n  \"endDate\": \"2024-12-31\",\n  \"duration\": \"3 years\",\n  \"responsibilities\": [\n    \"Developed scalable web applications using React and Node.js\",\n    \"Led a team of 5 developers in agile environment\",\n    \"Implemented CI/CD pipelines and automated testing\",\n    \"Mentored junior developers and conducted code reviews\"\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/experience",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "experience"]
+            },
+            "description": "Create a new experience record (API key required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Current Experience",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"Full Stack Developer\",\n  \"company\": \"Startup Inc\",\n  \"startDate\": \"2024-01-01\",\n  \"duration\": \"Present\",\n  \"responsibilities\": [\n    \"Building MVP from scratch using modern tech stack\",\n    \"Working with React, Node.js, and MongoDB\",\n    \"Managing cloud infrastructure on AWS\",\n    \"Collaborating with cross-functional teams\"\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/experience",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "experience"]
+            },
+            "description": "Create a current/ongoing experience record (API key required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Experience",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"endDate\": \"2025-01-15\",\n  \"responsibilities\": [\n    \"Developed scalable web applications using React and Node.js\",\n    \"Led a team of 8 developers in agile environment\",\n    \"Implemented CI/CD pipelines and automated testing\",\n    \"Mentored junior developers and conducted code reviews\",\n    \"Architected microservices for better scalability\"\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/experience/{{experienceId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "experience", "{{experienceId}}"]
+            },
+            "description": "Update an existing experience record (API key required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Experience",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/experience/{{experienceId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "experience", "{{experienceId}}"]
+            },
+            "description": "Delete an experience record (API key required)"
+          },
+          "response": []
+        }
+      ],
+      "description": "Work experience management endpoints"
+    },
+    {
+      "name": "Projects",
+      "item": [
+        {
+          "name": "Get All Projects",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/projects",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "projects"]
+            },
+            "description": "Get all project records (no authentication required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Project by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/projects/{{projectId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "projects", "{{projectId}}"]
+            },
+            "description": "Get a specific project record by ID (no authentication required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Project",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"E-Commerce Platform\",\n  \"description\": \"A full-stack e-commerce platform built with React, Node.js, and MongoDB. Features include user authentication, product management, shopping cart, and payment integration.\",\n  \"techStack\": [\"React\", \"Node.js\", \"MongoDB\", \"Express\", \"Stripe API\", \"JWT\"],\n  \"link\": \"https://github.com/johndoe/ecommerce-platform\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/projects",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "projects"]
+            },
+            "description": "Create a new project record (API key required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Project",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Updated description with new features and improvements\",\n  \"techStack\": [\"React\", \"Node.js\", \"MongoDB\", \"Express\", \"Stripe API\", \"JWT\", \"Docker\", \"AWS\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/projects/{{projectId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "projects", "{{projectId}}"]
+            },
+            "description": "Update an existing project record (API key required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Project",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/projects/{{projectId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "projects", "{{projectId}}"]
+            },
+            "description": "Delete a project record (API key required)"
+          },
+          "response": []
+        }
+      ],
+      "description": "Project portfolio management endpoints"
+    },
+    {
+      "name": "Certificates",
+      "item": [
+        {
+          "name": "Get All Certificates",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/certificates",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "certificates"]
+            },
+            "description": "Get all certificate records (no authentication required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Certificate by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/certificates/{{certificateId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "certificates", "{{certificateId}}"]
+            },
+            "description": "Get a specific certificate record by ID (no authentication required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Certificate",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"AWS Certified Solutions Architect\",\n  \"issuer\": \"Amazon Web Services\",\n  \"date\": \"2024-03-15\",\n  \"description\": \"Professional certification demonstrating expertise in designing distributed systems on AWS\",\n  \"credentials\": \"AWS-SAA-123456789\",\n  \"link\": \"https://aws.amazon.com/verification/123456789\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/certificates",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "certificates"]
+            },
+            "description": "Create a new certificate record (API key required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Certificate",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Updated description with additional details about the certification scope and benefits\",\n  \"credentials\": \"AWS-SAA-987654321\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/certificates/{{certificateId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "certificates", "{{certificateId}}"]
+            },
+            "description": "Update an existing certificate record (API key required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Certificate",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/personal/certificates/{{certificateId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "personal", "certificates", "{{certificateId}}"]
+            },
+            "description": "Delete a certificate record (API key required)"
+          },
+          "response": []
+        }
+      ],
+      "description": "Certificate management endpoints"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Auto-set API key for protected endpoints",
+          "if (pm.request.method !== 'GET' && !pm.request.url.toString().includes('/health')) {",
+          "    pm.request.headers.add({",
+          "        key: 'x-api-key',",
+          "        value: pm.collectionVariables.get('API_KEY')",
+          "    });",
+          "}"
+        ]
+      }
+    }
+  ]
+}
