@@ -15,9 +15,28 @@ const experienceSchema = new Schema<IExperience>({
     trim: true,
     maxlength: [200, 'Company name cannot be more than 200 characters']
   },
+  startDate: {
+    type: Date,
+    required: [true, 'Start date is required'],
+    validate: {
+      validator: function(value: Date) {
+        return value <= new Date();
+      },
+      message: 'Start date cannot be in the future'
+    }
+  },
+  endDate: {
+    type: Date,
+    validate: {
+      validator: function(value: Date) {
+        if (!value) return true; // Optional field
+        return value <= new Date() && value >= this.startDate;
+      },
+      message: 'End date must be after start date and cannot be in the future'
+    }
+  },
   duration: {
     type: String,
-    required: [true, 'Duration is required'],
     trim: true,
     maxlength: [50, 'Duration cannot be more than 50 characters']
   },

@@ -7,7 +7,7 @@ import logger from '../../config/logger';
 // Get all experience records
 export const getAllExperience = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const experience = await Experience.find().sort({ createdAt: -1 });
+    const experience = await Experience.find().sort({ startDate: -1 });
     sendSuccess(res, experience, 'Experience records retrieved successfully');
   } catch (error) {
     logger.error('Error getting experience records:', error);

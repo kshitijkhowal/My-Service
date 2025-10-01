@@ -65,7 +65,9 @@ export interface IExperience {
   _id?: string;
   role: string;
   company: string;
-  duration: string;
+  startDate: Date;
+  endDate?: Date;
+  duration?: string;
   responsibilities: string[];
   createdAt?: Date;
   updatedAt?: Date;
