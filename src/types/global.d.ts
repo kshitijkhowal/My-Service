@@ -27,6 +27,12 @@ export interface ResumeLink {
   url?: string;
 }
 
+export interface Marksheet {
+  title: string;
+  url: string;
+  description?: string;
+}
+
 // Personal profile interface
 export interface IPersonal {
   _id?: string;
@@ -45,8 +51,11 @@ export interface IEducation {
   _id?: string;
   degree: string;
   school: string;
-  year: number;
-  cgpa: number;
+  startDate: Date;
+  endDate?: Date;
+  percentage?: number;
+  cgpa?: number;
+  marksheets: Marksheet[];
   createdAt?: Date;
   updatedAt?: Date;
 }
