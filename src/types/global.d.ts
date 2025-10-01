@@ -45,8 +45,9 @@ export interface IEducation {
   _id?: string;
   degree: string;
   school: string;
-  year: number;
+  date: Date;
   cgpa: number;
+  certificateId?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
