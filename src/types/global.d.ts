@@ -17,12 +17,14 @@ export interface ApiResponse<T = any> {
   error?: string;
 }
 
-// Social media links interface
-export interface SocialLinks {
-  linkedin?: string;
-  github?: string;
-  twitter?: string;
-  website?: string;
+export interface SocialLink {
+  platform?: string;
+  url?: string;
+}
+
+export interface ResumeLink {
+  title?: string;
+  url?: string;
 }
 
 // Personal profile interface
@@ -31,7 +33,9 @@ export interface IPersonal {
   name: string;
   bio: string;
   email: string;
-  socials: SocialLinks;
+  phone?: string;
+  socials: SocialLink[];
+  resumeLinks: ResumeLink[];
   createdAt?: Date;
   updatedAt?: Date;
 }

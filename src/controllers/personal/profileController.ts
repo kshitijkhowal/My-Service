@@ -8,6 +8,7 @@ import logger from '../../config/logger';
 export const getAllPersonal = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const personal = await Personal.find();
+    
     sendSuccess(res, personal, 'Personal profiles retrieved successfully');
   } catch (error) {
     logger.error('Error getting personal profiles:', error);
