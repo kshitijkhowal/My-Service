@@ -15,20 +15,11 @@ const educationSchema = new Schema<IEducation>({
     trim: true,
     maxlength: [200, 'School name cannot be more than 200 characters']
   },
-  date: {
-    type: Date,
-    required: [true, 'Date is required'],
-    validate: {
-      validator: function(value: Date) {
-        return value <= new Date();
-      },
-      message: 'Date cannot be in the future'
-    }
-  },
-  certificateId: {
-    type: String,
-    trim: true,
-    ref: 'Certificate'
+  year: {
+    type: Number,
+    required: [true, 'Year is required'],
+    min: [1900, 'Year must be after 1900'],
+    max: [new Date().getFullYear() + 10, 'Year cannot be more than 10 years in the future']
   },
   cgpa: {
     type: Number,

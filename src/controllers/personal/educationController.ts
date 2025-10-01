@@ -7,7 +7,7 @@ import logger from '../../config/logger';
 // Get all education records
 export const getAllEducation = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const education = await Education.find().sort({ date: -1 });
+    const education = await Education.find().sort({ year: -1 });
     sendSuccess(res, education, 'Education records retrieved successfully');
   } catch (error) {
     logger.error('Error getting education records:', error);
