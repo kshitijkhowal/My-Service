@@ -6,17 +6,18 @@ import {
   updateEducation,
   deleteEducation
 } from '../../controllers/personal';
+import { authenticateApiKey } from '../../middlewares/auth';
 
 const router = Router();
 
 // Education routes
 router.route('/')
   .get(getAllEducation)
-  .post(createEducation);
+  .post(authenticateApiKey, createEducation);
 
 router.route('/:id')
   .get(getEducationById)
-  .put(updateEducation)
-  .delete(deleteEducation);
+  .put(authenticateApiKey, updateEducation)
+  .delete(authenticateApiKey, deleteEducation);
 
 export default router;

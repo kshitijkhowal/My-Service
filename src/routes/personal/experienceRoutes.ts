@@ -6,17 +6,18 @@ import {
   updateExperience,
   deleteExperience
 } from '../../controllers/personal';
+import { authenticateApiKey } from '../../middlewares/auth';
 
 const router = Router();
 
 // Experience routes
 router.route('/')
   .get(getAllExperience)
-  .post(createExperience);
+  .post(authenticateApiKey, createExperience);
 
 router.route('/:id')
   .get(getExperienceById)
-  .put(updateExperience)
-  .delete(deleteExperience);
+  .put(authenticateApiKey, updateExperience)
+  .delete(authenticateApiKey, deleteExperience);
 
 export default router;

@@ -6,17 +6,18 @@ import {
   updateProject,
   deleteProject
 } from '../../controllers/personal';
+import { authenticateApiKey } from '../../middlewares/auth';
 
 const router = Router();
 
 // Project routes
 router.route('/')
   .get(getAllProjects)
-  .post(createProject);
+  .post(authenticateApiKey, createProject);
 
 router.route('/:id')
   .get(getProjectById)
-  .put(updateProject)
-  .delete(deleteProject);
+  .put(authenticateApiKey, updateProject)
+  .delete(authenticateApiKey, deleteProject);
 
 export default router;

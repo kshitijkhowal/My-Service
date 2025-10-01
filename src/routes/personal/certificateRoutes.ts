@@ -6,17 +6,18 @@ import {
   updateCertificate,
   deleteCertificate
 } from '../../controllers/personal';
+import { authenticateApiKey } from '../../middlewares/auth';
 
 const router = Router();
 
 // Certificate routes
 router.route('/')
   .get(getAllCertificates)
-  .post(createCertificate);
+  .post(authenticateApiKey, createCertificate);
 
 router.route('/:id')
   .get(getCertificateById)
-  .put(updateCertificate)
-  .delete(deleteCertificate);
+  .put(authenticateApiKey, updateCertificate)
+  .delete(authenticateApiKey, deleteCertificate);
 
 export default router;

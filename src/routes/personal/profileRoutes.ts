@@ -6,17 +6,18 @@ import {
   updatePersonal,
   deletePersonal
 } from '../../controllers/personal';
+import { authenticateApiKey } from '../../middlewares/auth';
 
 const router = Router();
 
 // Profile routes
 router.route('/')
   .get(getAllPersonal)
-  .post(createPersonal);
+  .post(authenticateApiKey, createPersonal);
 
 router.route('/:id')
   .get(getPersonalById)
-  .put(updatePersonal)
-  .delete(deletePersonal);
+  .put(authenticateApiKey, updatePersonal)
+  .delete(authenticateApiKey, deletePersonal);
 
 export default router;
